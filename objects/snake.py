@@ -1,19 +1,20 @@
-class Snake:
-    def __init__(self, size):
-        self.size=1
-        self.speed=10
-        self.direction='UP'
+import pygame
 
-    def __str__(self):
-        return f"Snake size {self.size}"
+class Snake:
+    def __init__(self):
+        self.size=1
+        self.speed=5
+        self.direction='up'
+        self.x = 100
+        self.y = 100
     
-    def eat(self):
-        self.size = self.size + 1
-        pass
 
     def draw(self, surface):
-        pass
+        rect = pygame.Rect(self.x,self.y, 30, 30)
+        pygame.draw.rect(surface, 'green', rect, 30)
 
-    def move(self, key_input):
-
-        pass
+    def update_position(self):
+        if self.direction == 'up': self.y -= self.speed
+        elif self.direction == 'down': self.y += self.speed
+        elif self.direction == 'right': self.x += self.speed
+        elif self.direction == 'left': self.x -= self.speed

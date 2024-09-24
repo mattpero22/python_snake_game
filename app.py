@@ -6,13 +6,7 @@ import sys
 import random
 
 from objects.game_board import GameBoard
-
-# constants/settings for game
-SPEED = 10
-SPACE_SIZE = 50
-SNAKE_COLOR = "green"
-BACKGROUND_COLOR = "white"
-
+from objects.snake import Snake
 
 # pygame setup
 pygame.init()
@@ -21,9 +15,17 @@ screen = pygame.display.set_mode((800,800))
 clock = pygame.time.Clock()
 running = True
 
-# use the game board class for setup of the game play area
-board = GameBoard()
-board.draw_grid(screen)
+# # use the game board class for setup of the game play area
+# board = GameBoard()
+# game_surface = board.draw_grid(screen)
+
+# # initialize the snake character for the game
+# snake = Snake()
+# snake.draw(game_surface)
+
+x = GameBoard()
+s = Snake()
+
 
 while running:
     # poll for events
@@ -31,8 +33,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP: s.direction = 'up'
+            elif event.key == pygame.K_DOWN: s.direction = 'down'
+            elif event.key == pygame.K_RIGHT: s.direction = 'right'
+            elif event.key == pygame.K_LEFT: s.direction = 'left'
 
     # RENDER YOUR GAME HERE
+    s.update_position()
+
+    screen.fill('black')
+    x.draw_grid(screen)
+    s.draw(screen)
+
 
     # flip() the display to put your work on screen
     pygame.display.flip()
